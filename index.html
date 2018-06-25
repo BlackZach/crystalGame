@@ -1,0 +1,118 @@
+
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Page Title</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    </head>
+    <body>
+
+        <div id='goal' style="font-size: 40px"></div>
+        <div id='current-points' style="font-size: 80px"></div>
+        <div class="sidenav">
+            <a href='#'>About</a>
+            <a href='#'>Services</a>
+            <a href='#'>Clients</a>
+            <a href='#'>Contact</a>
+        </div>
+        <div class="sidenavRight">
+               
+            <p style = "font-family: fantasy">
+                Always remember where you came from.
+            </p>
+        </div>
+        
+    </body>
+        <script type="text/javascript">
+           
+
+function startTimer(duration, display) {
+    var timer = duration, minutes, seconds;
+    setInterval(function () {
+        minutes = parseInt(timer / 60, 10)
+        seconds = parseInt(timer % 60, 10);
+
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        display.textContent = minutes + ":" + seconds;
+
+        if (--timer < 0) {
+            timer = duration;
+        }
+    }, 1000);
+}
+
+window.onload = function () {
+    var oneMinute = 10 * 1,
+        display = document.querySelector('#time');
+    startTimer(oneMinute, display);
+};
+
+
+    
+
+        let loseCount = 0;
+        let red = 'redCrystal.png';
+        let blue = 'blueCrystal.png';
+        let green = 'greenCrystal.png';
+        let yellow = 'purpleCrystal.png';
+        let colors = [red, yellow, blue, green];
+        let randomArray = [];
+        let currentPoints = 0;
+        let points = 0;
+        let goal = random = Math.floor(Math.random() * 20 + 80);
+        $('#goal').text("GOAL IS: " + goal);
+        $('#current-points').text("Current Points: " + currentPoints);
+        $(document).ready(function ()  { 
+    for (let i = 0; i < 4; i++) {
+        let newDiv = $('<div></div>');
+        newDiv.addClass('crystal');
+        random = Math.floor(Math.random() * 12);
+       while (randomArray.includes(random)) {
+           random = Math.floor(Math.random() * 12);
+           console.log(random);
+           console.log('array ' + randomArray);
+       };
+       randomArray.push(random);
+        newDiv.val(random);
+       // newDiv.text(random);
+        
+        newDiv.css('height', '100px');
+        newDiv.css('width', '100px');
+        newDiv.css('background-size', '100px 100px');
+        newDiv.css('background-image', 'url(' + colors[i] + ')');
+        newDiv.css('background-repeat', 'no-repeat');
+        newDiv.css('background-position', 'center');
+        newDiv.css('position', 'relative');
+        newDiv.css('left', '725px');
+        newDiv.click(function(){
+            points += parseInt($(this).val());
+            //currentPoints = $(this).val() + currentPoints;
+            
+            //console.log("Type of : " +  typeof(currentPoints));
+            console.log('currentPoints ' + points);
+            $('#current-points').text("Current Points: " + points);
+            if (points === goal) {
+                alert('WINNER');
+                document.location.href=''
+            }
+            else if (points > goal){
+                alert('LOSER');
+                document.location.href=''
+            }
+        })
+        $('body').append(newDiv);
+       console.log('for loop number ' + i);
+    };
+       
+     
+       
+   
+});
+</script>
+</body>
+</html>
